@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.server.EntityHuman;
-
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -310,7 +308,7 @@ public class Admin implements ICommand {
 			}
 
 			net.minecraft.server.World handle = ((CraftWorld) block.getWorld()).getHandle();
-			EntityHuman human = ((CraftHumanEntity) player).getHandle();
+			net.minecraft.server.EntityHuman human = ((CraftHumanEntity) player).getHandle();
 			int x = block.getX();
 			int y = block.getY();
 			int z = block.getZ();

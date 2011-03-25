@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.ContainerBlock;
 import org.bukkit.entity.Player;
@@ -95,44 +94,7 @@ public class LWCBlockListener extends BlockListener {
 			return;
 		}
 
-		BlockDamageLevel level = event.getDamageLevel();
-
-		if (level == BlockDamageLevel.STARTED) {
-			blockTouched(event);
-		}
-
-	}
-
-	/**
-	 * Prevent player from interacting with a protected block
-	 */
-	@Override
-	public void onBlockInteract(BlockInteractEvent event) {
-		if (!(event.getEntity() instanceof Player)) {
-			return;
-		}
-
-		Player player = (Player) event.getEntity();
-		LWC lwc = plugin.getLWC();
-
-		Block block = event.getBlock();
-
-		/*
-		 * Prevent players with lwc.blockinventories from opening inventories
-		 */
-		if (lwc.getPermissions() != null && !Permissions.Security.permission(player, "lwc.protect") && Permissions.Security.permission(player, "lwc.blockinventory") && !lwc.isAdmin(player) && !lwc.isMod(player)) {
-			if (block.getState() instanceof ContainerBlock) {
-				player.sendMessage(Colors.Red + "The server admin is blocking you from opening that.");
-				event.setCancelled(true);
-				return;
-			}
-		}
-
-		boolean access = lwc.enforceAccess(player, block);
-
-		if (!access) {
-			event.setCancelled(true);
-		}
+		blockTouched(event);
 	}
 
 	/**
